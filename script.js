@@ -22,34 +22,75 @@ function renderRockets(rockets) {
         const rocket = rockets[i];
         RocketsHTML.innerHTML += generateRocketsHTML(rocket, i);
     }
-
 }
-
 
 function renderData(index) {
     addBlurr();
-    let dataHTML = document.getElementById('rocketContainer');
-        const data = responseAsJson[index];
-        
-        dataHTML.innerHTML += generateDataHTML(data, index);
-        renderPayloadWeights(index);
+    let dataHTML = document.getElementById('rocketTable');
+    const data = responseAsJson[index];
 
-        function renderPayloadWeights(j) {
-            for (let i = 0; i < responseAsJson[j]['payload_weights'].length; i++) {
-                const element = responseAsJson[j][i];
-             dataHTML.innerHTML += `${element['id']}`;   
-            }
-        }
+    document.getElementById('dataSheet').classList.remove('d-none');
+    dataHTML.innerHTML += generateDataHTML(data, index);
+    document.getElementsByTagName("body")[0].style = `overflow: hidden`
+    renderPayloadWeights(index);
 }
 
+function renderPayloadWeights(j) {
+    let dataHTML = document.getElementById('payloadTable');
+    for (let i = 0; i < responseAsJson[j]['payload_weights'].length; i++) {
+        const element = responseAsJson[j]['payload_weights'][i];
+        let payloadWeight = element['kg'];
+        let payloadName = element['name'];
+        dataHTML.innerHTML += generatePayloadHTML(payloadWeight, payloadName);
+    }
+}
 
 
 function addBlurr() {
     let element = document.querySelectorAll('[id^="rocketCards"]');
     for (let i = 0; i < element.length; i++) {
-        element[i].style = 'filter: blur(4px)';        
+        element[i].style = 'filter: blur(4px)';
     }
 }
+
+function removeBlurr() {
+    let element = document.querySelectorAll('[id^="rocketCards"]');
+    for (let i = 0; i < element.length; i++) {
+        element[i].style = 'filter: none';
+    }
+}
+
+function closeData() {
+    document.getElementById('dataSheet').classList.add('d-none');
+    document.getElementById('btnClose').remove();
+    document.getElementById('rocketTableChild').remove();
+    let element = document.querySelectorAll('[id^="payloadTableChild"]');
+    for (let i = 0; i < element.length; i++) {
+        element[i].remove();
+    }
+    removeBlurr();
+    document.getElementsByTagName("body")[0].style = `overflow: auto`
+
+}
+
+function renderImages(index) {
+    addBlurr();
+
+    let imagesHTML = document.getElementById('rocketContainer');
+    const img = responseAsJson[index];
+
+    imagesHTML.innerHTML += generateImagesHTML(img, index);
+
+}
+
+
+
+
+
+
+
+
+
 
 function generateRocketsHTML(rocket, i) {
     return /* html */ `
@@ -70,47 +111,66 @@ function generateRocketsHTML(rocket, i) {
 }
 
 
-function generateDataHTML(data, index) {
+function generateDataHTML(data) {
     return /* html */ `
-    <img src="./img/close.png" alt="" type="button" class="btn-close">
-    <div class="rocket-table">
-        <table class="table table-dark table-striped table-borderless table-hover">
-            <tr>
-                <th>Name</th>
-                <td>${data['name']}</td>
-            </tr>
-            <tr>
-                <th>Stages</th>
-                <td>${data['stages']}</td>
-            </tr>
-            <tr>
-                <th>Boosters</th>
-                <td>${data['boosters']}</td>
-            </tr>            
-            <tr>
-                <th>Diameter(m)</th>
-                <td>${data['diameter']['meters']}</td>
-            </tr>
-            <tr>
-                <th>Heigth(m)</th>
-                <td>${data['height']['meters']}</td>
-            </tr>
-            <tr>
-                <th>Mass(kg)</th>
-                <td>${data['mass']['kg']}</td>
-            </tr>
-            <tr>
-                <th>Payload Weight(kg)</th>
-                <tr>
-                    <th>${data['payload_weights']}</th>
-                    <td>${data['payload_weights'][0]['kg']}</td>
-                </tr>
-            </tr>
-            <tr>
-                <th>Boosters</th>
-                <td>${data['boosters']}</td>
-            </tr>
-        </table>
-        </div>
-        `;
+                            <img onclick="closeData()" id="btnClose" src="./img/close.png" alt="" type="button" class="btn-close">
+                            <table id="rocketTableChild" class="table table-dark table-striped table-borderless table-hover">
+                                <tr>
+                                    <th>Name</th>
+                                    <td>${data['name']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Stages</th>
+                                    <td>${data['stages']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Boosters</th>
+                                    <td>${data['boosters']}</td>
+                                </tr>            
+                                <tr>
+                                    <th>Diameter(m)</th>
+                                    <td>${data['diameter']['meters']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Heigth(m)</th>
+                                    <td>${data['height']['meters']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Mass(kg)</th>
+                                    <td>${data['mass']['kg']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Landing Legs</th>
+                                    <td>${data['landing_legs']['number']}</td>
+                                </tr>
+                                <tr>
+                                    <th>Costs Per Launch($)</th>
+                                    <td>${data['cost_per_launch']}</td>
+                                </tr>
+                                <tr>
+                                    <th>First Flight</th>
+                                    <td>${data['first_flight']}</td>
+                                </tr>
+                            </table>
+                            `;
+}
+
+function generatePayloadHTML(payloadWeight, payloadName) {
+    return /* html */ `
+                                <tr id="payloadTableChild">
+                                    <th>${payloadName}</th>
+                                    <td>${payloadWeight}</td>
+                                </tr>           
+                        `;
+}
+
+function generateImagesHTML(img, index) {
+    return /* html */ `
+                        <div class="img-zoom " id="imgZoom">
+                            <img src="${img['flickr_images'][0]}" class= "zoomed-img" alt="">
+                            <div class ="nav">
+                            </div> 
+                            <img src="images/close.png" onclick="imgClose()" class="button-close" alt=""> 
+                        </div>
+                        `;
 }

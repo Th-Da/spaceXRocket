@@ -11,13 +11,25 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <script src="./script.js"></script>
-    </head>
+</head>
 
 <body onload="init()">
-<div id="container">
-    <div id="rocketContainer" class="rocket-container"></div>
+    <div id="container">
+        <div id="rocketContainer" class="rocket-container"></div>
 
-</div>
+        <div id="dataSheet" class="data-sheet d-none">
+            <h3>Data</h5>
+            <div id="rocketTable" class="rocket-table">
+                
+            </div>
+
+            <div class="payload-table">
+                <h3>Payload</h3>
+                <table id="payloadTable" class="table table-dark table-striped table-borderless table-hover">
+                </table>
+            </div>
+        </div>
+    </div>
 
 </body>
 
