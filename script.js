@@ -158,7 +158,7 @@ function generateDataHTML(data) {
 function generatePayloadHTML(payloadWeight, payloadName) {
     return /* html */ `
                                 <tr id="payloadTableChild">
-                                    <th>${payloadName}</th>
+                                    <th>${payloadName}(kg)</th>
                                     <td>${payloadWeight}</td>
                                 </tr>           
                         `;

@@ -10,7 +10,10 @@ html {
     background: url(./img/rocket-launch-gd92c23569_1920.jpg) no-repeat center center fixed;
     background-size: cover;
     background-position: top;
-    
+}
+
+.bold {
+    font-weight: bolder;
 }
 
 * {
@@ -34,7 +37,7 @@ html {
 }
 
 .data-sheet {
-    position: absolute;
+    position: fixed;
     justify-content: center;
     align-items: center;
     bottom: 10vh;
@@ -76,12 +79,6 @@ html {
     width: inherit;
     margin-bottom: 1rem;
 }
-
-.rocket-table {
-
-}
-
-
 
 .btn-close {
     position: absolute;
