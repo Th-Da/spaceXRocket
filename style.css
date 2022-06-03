@@ -1,3 +1,7 @@
+.blurr {
+    filter: blur(4px);
+}
+
 html {
     background: url(./img/rocket-launch-gd92c23569_1920.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -21,7 +25,8 @@ html {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    justify-content: center;;
+    justify-content: center;
+    gap: 1%;
 }
 
 .card {
@@ -54,4 +59,18 @@ html {
     justify-content: space-evenly;
     width: inherit;
     margin-bottom: 1rem;
+}
+
+.rocket-table {
+    position: absolute;
+}
+
+
+
+.btn-close {
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
+    width: 2em !important;
+    height: 2em !important;
 }
