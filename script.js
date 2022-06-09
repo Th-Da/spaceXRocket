@@ -1,4 +1,5 @@
-let responseAsJson
+let responseAsJson;
+let imgPosition = 0;
 
 function init() {
     loadRockets();
@@ -35,10 +36,10 @@ function renderData(index) {
     renderPayloadWeights(index);
 }
 
-function renderPayloadWeights(j) {
+function renderPayloadWeights(index) {
     let dataHTML = document.getElementById('payloadTable');
-    for (let i = 0; i < responseAsJson[j]['payload_weights'].length; i++) {
-        const element = responseAsJson[j]['payload_weights'][i];
+    for (let i = 0; i < responseAsJson[index]['payload_weights'].length; i++) {
+        const element = responseAsJson[index]['payload_weights'][i];
         let payloadWeight = element['kg'];
         let payloadName = element['name'];
         dataHTML.innerHTML += generatePayloadHTML(payloadWeight, payloadName);
@@ -61,31 +62,60 @@ function removeBlurr() {
 }
 
 function closeData() {
+    document.getElementsByTagName("body")[0].style = `overflow: auto`
     document.getElementById('dataSheet').classList.add('d-none');
     document.getElementById('btnClose').remove();
-    document.getElementById('rocketTableChild').remove();
+    if (document.getElementById('rocketTableChild')) {
+        document.getElementById('rocketTableChild').remove();
+    }
+    if (document.getElementById('imgZoom')) {
+        document.getElementById('imgZoom').remove();
+
+    }
     let element = document.querySelectorAll('[id^="payloadTableChild"]');
     for (let i = 0; i < element.length; i++) {
         element[i].remove();
     }
+    imgPosition = 0;
     removeBlurr();
-    document.getElementsByTagName("body")[0].style = `overflow: auto`
 
 }
 
 function renderImages(index) {
     addBlurr();
-
-    let imagesHTML = document.getElementById('rocketContainer');
-    const img = responseAsJson[index];
-
-    imagesHTML.innerHTML += generateImagesHTML(img, index);
+    let imagesHTML = document.getElementById('imgContainer');
+    for (let i = 0; i < responseAsJson[index]['flickr_images'].length; i++) {
+        const currentImg = responseAsJson[index]['flickr_images'][imgPosition];
+        imagesHTML.classList.remove('d-none');
+        imagesHTML.innerHTML = ``;
+        imagesHTML.innerHTML += generateImagesHTML(currentImg, index);
+    
+    }
 
 }
 
 
 
+function imgForeward(index) {
+    if (imgPosition < responseAsJson[index]['flickr_images'].length - 1) {
+        imgPosition++
+    } else {
+        imgPosition = 0
+    }
+    document.getElementById('imgContainer').innerHTML = ``;
+    renderImages(index);
+}
 
+function imgBackward(index) {
+    if (imgPosition !== 0) {
+        imgPosition--
+    } else {
+        imgPosition = responseAsJson[index]['flickr_images'].length - 1
+    }
+    document.getElementById('imgContainer').innerHTML = ``;
+    renderImages(index);
+
+}
 
 
 
@@ -164,13 +194,17 @@ function generatePayloadHTML(payloadWeight, payloadName) {
                         `;
 }
 
-function generateImagesHTML(img, index) {
+function generateImagesHTML(currentImg, index) {
     return /* html */ `
-                        <div class="img-zoom " id="imgZoom">
-                            <img src="${img['flickr_images'][0]}" class= "zoomed-img" alt="">
-                            <div class ="nav">
-                            </div> 
-                            <img src="images/close.png" onclick="imgClose()" class="button-close" alt=""> 
+                <div class="overlay d-flex" id="imgZoom">
+                    <div class="d-flex">
+                    <img src="${currentImg}" class= "zoomed-img" alt="">
+                        <div class ="nav">
+                            <img src="./img/arrow-fw.png" id="btnFw" onclick="imgForeward('${index}')" alt="" type="button" class="btn-fw">
+                            <img src="./img/arrow-bw.png" id="btnBw" onclick="imgBackward('${index}')" alt="" type="button" class="btn-bw">
+                            <img src="./img/close.png" id="btnClose" onclick="closeData()" alt="" type="button" class="btn-close-img">
                         </div>
+                    </div> 
+                </div>  
                         `;
 }

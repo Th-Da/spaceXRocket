@@ -6,6 +6,10 @@
     display: none;
 }
 
+.d-flex {
+    display: flex;
+}
+
 html {
     background: url(./img/rocket-launch-gd92c23569_1920.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -82,8 +86,80 @@ html {
 
 .btn-close {
     position: absolute;
-    left: 100%;
-    bottom: 100%;
+    top: 0%;
+    right: 0%;
     width: 2em !important;
     height: 2em !important;
+}
+
+.btn-fw {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    width: 2em !important;
+    height: 2em !important;
+}
+
+.btn-bw {
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    width: 2em !important;
+    height: 2em !important;
+}
+
+.btn-close-img {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 2em !important;
+    height: 2em !important;
+}
+
+.overlay {
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    min-height: 100vh;
+}
+
+.zoomed-img {
+    max-width: 85vw;
+    height: 90vh !important;
+    object-fit: scale-down;
+    opacity: 1 !important;
+}
+
+
+@media (max-width: 1500px) {
+    .btn-fw {
+        right: 3%;
+    }
+
+    .btn-bw {
+        left: 3%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .btn-fw {
+        right: 2%;
+    }
+
+    .btn-bw {
+        left: 2%;
+    }
+}
+
+@media (max-width: 700px) {
+    .btn-bw .btn-fw {
+        width: 1em !important;
+    }
+
+    .btn-close-img {
+        top: 20%;
+    }
 }
