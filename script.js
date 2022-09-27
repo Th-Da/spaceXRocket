@@ -3,8 +3,7 @@ let imgPosition = 0;
 
 function init() {
     loadRockets();
-/*     loadLandpads();
- */}
+}
 
 async function loadRockets() {
     let url = `https://api.spacexdata.com/v4/rockets`;
@@ -13,9 +12,6 @@ async function loadRockets() {
     console.log('Rockets:', responseAsJson);
     renderRockets(responseAsJson);
 }
-
-
-/*https://api.spacexdata.com/v4/landpads */
 
 function renderRockets(rockets) {
     let RocketsHTML = document.getElementById('rocketContainer');
@@ -46,7 +42,6 @@ function renderPayloadWeights(index) {
     }
 }
 
-
 function addBlurr() {
     let element = document.querySelectorAll('[id^="rocketCards"]');
     for (let i = 0; i < element.length; i++) {
@@ -70,7 +65,6 @@ function closeData() {
     }
     if (document.getElementById('imgZoom')) {
         document.getElementById('imgZoom').remove();
-
     }
     let element = document.querySelectorAll('[id^="payloadTableChild"]');
     for (let i = 0; i < element.length; i++) {
@@ -78,7 +72,6 @@ function closeData() {
     }
     imgPosition = 0;
     removeBlurr();
-
 }
 
 function renderImages(index) {
@@ -89,12 +82,8 @@ function renderImages(index) {
         imagesHTML.classList.remove('d-none');
         imagesHTML.innerHTML = ``;
         imagesHTML.innerHTML += generateImagesHTML(currentImg, index);
-    
     }
-
 }
-
-
 
 function imgForeward(index) {
     if (imgPosition < responseAsJson[index]['flickr_images'].length - 1) {
@@ -114,17 +103,11 @@ function imgBackward(index) {
     }
     document.getElementById('imgContainer').innerHTML = ``;
     renderImages(index);
-
 }
-
-
-
-
-
 
 function generateRocketsHTML(rocket, i) {
     return /* html */ `
-                       <div id="rocketCards" class="card bg-transparent">
+                       <div id="rocketCards" class="card">
                             <div class="card-input">
                             <h5 class="card-title">${rocket['name']}</h5>
                             <img src="${rocket['flickr_images'][0]}" class="card-img-top" alt="...">

@@ -16,6 +16,10 @@ html {
     background-position: top;
 }
 
+body {
+    overflow-x: hidden;
+}
+
 .bold {
     font-weight: bolder;
 }
@@ -57,6 +61,7 @@ html {
     height: 42rem !important;
     margin-top: 10%;
     backdrop-filter: blur(3px);
+    background-color: #ffffff6e !important;
     display: flex;
     align-items: center;
     justify-content: space-between;
