@@ -10,6 +10,10 @@
     display: flex;
 }
 
+.z-index {
+    z-index: 9999;
+}
+
 html {
     background: url(./img/rocket-launch-gd92c23569_1920.jpg) no-repeat center center fixed;
     background-size: cover;
@@ -20,8 +24,25 @@ body {
     overflow-x: hidden;
 }
 
+h1, h2 {
+    margin-top: 30px !important;
+}
+
 .bold {
     font-weight: bolder;
+}
+
+table {
+    margin-bottom: 5%;
+    width: 60vw !important;
+}
+
+table td {
+    width: 20vw;
+}
+
+.arrows {
+    justify-content: center !important;
 }
 
 * {
@@ -34,6 +55,19 @@ body {
     position: absolute;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.background-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    content: ' ';
+    z-index: -1;
 }
 
 .rocket-container {
@@ -42,24 +76,61 @@ body {
     align-items: center;
     justify-content: center;
     gap: 1%;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.singleImg {
+    position: fixed;
+    top: 25%;
+    left: 20vw;
+    overflow: auto;
+}
+
+.img-container {
+    max-width: 100vw;
+    width: 75%;
+    height: 80%;
+    padding-right: 15px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.data-container {
+
+
+    width: 60;
+    height: 70vh;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
 
 .data-sheet {
     position: fixed;
-    justify-content: center;
-    align-items: center;
-    bottom: 10vh;
-    top: 10vh;
+    height: 70vh;
+    top: 25%;
     left: 20vw;
-    right: 20vw;
-    min-height: 100vh;
+    overflow: auto;
+}
 
+.payload-tabel tr {
+    width: 20vw;
 }
 
 .card {
     width: 20rem;
-    height: 42rem !important;
-    margin-top: 10%;
+    height: 38rem !important;
+    margin-top: 5%;
+    margin-bottom: 5%;
     backdrop-filter: blur(3px);
     background-color: #ffffff6e !important;
     display: flex;
@@ -114,28 +185,35 @@ body {
 }
 
 .btn-close-img {
-    position: absolute;
-    top: 10%;
-    right: 10%;
+    position: fixed;
+    top: 3%;
+    right: 6%;
     width: 2em !important;
     height: 2em !important;
 }
 
 .overlay {
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-    top: 0%;
-    left: 0%;
-    right: 0%;
     min-height: 100vh;
+    position: fixed;
+    top: 5%;
+    left: 10vw;
+    right: 10vw;
+    height: 75vh;
+    overflow: auto;
 }
 
 .zoomed-img {
     max-width: 85vw;
     height: 90vh !important;
-    object-fit: scale-down;
+    object-fit: contain;
     opacity: 1 !important;
+}
+
+.wrapper {
+    position: absolute;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
 }
 
 
@@ -157,14 +235,78 @@ body {
     .btn-bw {
         left: 2%;
     }
+
+    .data-sheet {
+        height: 70vh;
+    }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
     .btn-bw .btn-fw {
         width: 1em !important;
     }
 
+    .card img {
+        height: 17rem;
+    }
+
     .btn-close-img {
-        top: 20%;
+        position: fixed;
+        right: 4%;
+        width: 1.5em !important;
+        height: 1.5em !important;
+    }
+}
+
+@media (max-width: 424px) {
+    .card img {
+        height: 15rem;
+    }
+}
+
+@media (min-width: 1800px) {
+
+    .btn-bw .btn-fw {
+        width: 4em !important;
+    }
+
+    .btn-close-img {
+        top: 10%;
+        right: 15%;
+        width: 4em !important;
+        height: 4em !important;
+    }
+
+    .img-container {
+        width: 67vw;
+        height: 57vh;
+
+    }
+
+
+}
+
+@media (min-width: 2300px) {
+
+    .img-container {
+        width: 50vw;
+        height: 41vh;
+    }
+
+    .card-title {
+        font-size: 1.5em;
+    }
+
+    .card-text {
+        font-size: 1.3em;
+    }
+
+    .card {
+        width: 32rem;
+        height: 56rem !important;
+    }
+
+    .card img {
+        height: 25rem;
     }
 }
